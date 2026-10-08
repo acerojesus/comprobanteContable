@@ -2,7 +2,7 @@
 
 <template>
     <div>
-        <h1>Bienvenido a la página de inicio</h1>
+        <h1>Hola leo, bienvenido a ContarERP</h1>
     </div>
 </template>
 <style src="../styles/inicio.css"></style>
