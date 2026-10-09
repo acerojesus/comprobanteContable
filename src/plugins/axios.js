@@ -1,9 +1,14 @@
 import axios from 'axios';
-import { useAuthStore } from '../stores/Auth.js'; // Asegúrate de que este es el nombre de tu store
+import { useAuthStore } from '../stores/Auth.js';
+
+// Configuración de URLs base según el entorno:
+// Local: 'http://localhost:49256/api'
+// Producción: 'https://api.contar.co/api'
+const LOCAL_URL = 'http://localhost:49256/api';
+const PROD_URL = 'https://api.contar.co/api';
 
 const axiosInstance = axios.create({
-  // baseURL: 'http://localhost:4500/api',
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL || (import.meta.env.PROD ? PROD_URL : LOCAL_URL),
   headers: {
     'Content-Type': 'application/json'
   }
@@ -16,7 +21,7 @@ axiosInstance.interceptors.request.use(
     const token = authStore.token;
 
     if (token) {
-      // Configuramos el header personalizado solicitado
+      // Header personalizado para autorización
       config.headers['x-token'] = token;
     }
     return config;

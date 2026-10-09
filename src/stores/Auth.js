@@ -1,14 +1,36 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
+export const useAuthStore = defineStore(
+  "auth",
+  () => {
+    const token = ref("");
+    const userName = ref("");
+    const nombre = ref("");
+    const empresa = ref("");
 
-export const useAuthStore = defineStore("auth", () => {
-    let token = ref("");
+    const setSession = (data) => {
+      token.value = data.token || "";
+      userName.value = data.userName || "";
+      nombre.value = data.nombre || "";
+      empresa.value = data.empresa || "";
+    };
+
+    const clearSession = () => {
+      token.value = "";
+      userName.value = "";
+      nombre.value = "";
+      empresa.value = "";
+    };
 
     return {
-        token
-    }
-},
-
-    { persist: true }
-)
+      token,
+      userName,
+      nombre,
+      empresa,
+      setSession,
+      clearSession,
+    };
+  },
+  { persist: true }
+);
