@@ -6,8 +6,19 @@ import axiosInstance from '../plugins/axios.js';
  * @param {object} params - Parámetros de consulta opcionales
  */
 
-export const getData = async (url, params = {}) => {
-  const response = await axiosInstance.get(url, { params });
+export const getData = async (url, params = {}, data = null) => {
+  const config = {
+    method: 'get',
+    url,
+    params,
+  };
+  if (data !== null) {
+    config.data = data;
+    config.headers = {
+      'Content-Type': 'application/json'
+    };
+  }
+  const response = await axiosInstance.request(config);
   return response.data;
 };
 

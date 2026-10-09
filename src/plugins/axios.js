@@ -21,8 +21,9 @@ axiosInstance.interceptors.request.use(
     const token = authStore.token;
 
     if (token) {
-      // Header personalizado para autorización
+      // Header personalizado para autorización y compatibilidad con Bearer token
       config.headers['x-token'] = token;
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
   },
